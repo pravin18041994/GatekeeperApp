@@ -18,6 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   var passwordErrorTextVisible = false;
   var contactErrorText;
   var passwordErrorText;
+  final FocusNode contactNode = FocusNode();
+  final FocusNode passwordNode = FocusNode();
+  final FocusNode loginButtonNode = FocusNode();
   onContactEntered() {
     setState(() {
       contactErrorTextVisible = false;
@@ -70,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Icon(
                                 Icons.dashboard,
                                 size: 200.0,
+                                color: Colors.blue,
                               ),
                               // child: Text(
                               //   'Login',
@@ -84,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           margin: EdgeInsets.only(left: 15.0, right: 15.0),
                           child: TextField(
+                            focusNode: contactNode,
                             onChanged: (val) {
                               onContactEntered();
                             },
@@ -95,8 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                             controller: contactController,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(10),
+                              WhitelistingTextInputFormatter.digitsOnly
                             ],
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                               hintText: 'Contact',
                               hintStyle: TextStyle(
@@ -131,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           margin: EdgeInsets.only(left: 15.0, right: 15.0),
                           child: TextField(
+                            focusNode: passwordNode,
                             cursorColor: Colors.black,
                             autocorrect: true,
                             controller: passwordController,
@@ -173,6 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                               )),
                         ),
                         RaisedButton(
+                          focusNode: loginButtonNode,
                           child: Text(
                             'Login',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -212,12 +220,17 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               );
                             } else {
+                              FocusScope.of(context)
+                                  .requestFocus(loginButtonNode);
                               Navigator.pop(context);
+
                               _scaffoldKey.currentState.showSnackBar(SnackBar(
                                 content: Text(resp.toString(),
                                     style: TextStyle(fontFamily: 'Raleway')),
                                 duration: Duration(seconds: 3),
                               ));
+                              passwordController.clear();
+                              contactController.clear();
                             }
                           },
                         ),

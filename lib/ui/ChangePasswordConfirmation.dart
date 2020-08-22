@@ -63,6 +63,7 @@ class _ChangePasswordConfirmationState
                         child: Icon(
                           Icons.dashboard,
                           size: 200.0,
+                          color: Colors.blue,
                         ),
                       ),
                       Container(

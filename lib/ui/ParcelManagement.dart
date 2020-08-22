@@ -111,6 +111,11 @@ class _ParcelManagementState extends State<ParcelManagement> {
     );
   }
 
+  Future<Null> getRefresh() async {
+    getParcels();
+    await Future.delayed(Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -159,6 +164,7 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.75,
                                   child: Card(
+                                    color: Colors.blue,
                                     margin: EdgeInsets.fromLTRB(
                                         10.0, 15.0, 10.0, 10.0),
                                     shape: RoundedRectangleBorder(
@@ -181,6 +187,7 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                             children: <Widget>[
                                               ListTile(
                                                 title: DropdownButton<String>(
+                                                  dropdownColor: Colors.blue,
                                                   focusNode:
                                                       nodeflatDropdownValue,
                                                   value: flatDropdownValue,
@@ -196,13 +203,13 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                         fontFamily: 'Raleway',
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue),
+                                                        color: Colors.white),
                                                   ),
                                                   style: TextStyle(
-                                                      color: Colors.blue),
+                                                      color: Colors.white),
                                                   underline: Container(
                                                     height: 2,
-                                                    color: Colors.blue,
+                                                    color: Colors.white,
                                                   ),
                                                   onChanged:
                                                       (String newValue) async {
@@ -240,7 +247,7 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                             decoration:
                                                                 TextDecoration
                                                                     .none,
-                                                            color: Colors.blue,
+                                                            color: Colors.white,
                                                             fontFamily:
                                                                 'Raleway',
                                                             fontWeight:
@@ -253,6 +260,9 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                               ),
                                               ListTile(
                                                 title: TextFormField(
+                                                  cursorColor: Colors.white,
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                   onChanged:
                                                       parcelManagementBloc
                                                           .getDeiveyAgencyName,
@@ -267,23 +277,34 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                   controller:
                                                       deliveryAgencyNameController,
                                                   decoration: InputDecoration(
-                                                      labelText:
-                                                          "Delivery Agency Name",
-                                                      labelStyle: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.blue),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .blue))),
+                                                    labelText:
+                                                        "Delivery Agency Name",
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                  ),
                                                 ),
                                               ),
                                               ListTile(
                                                 title: TextFormField(
+                                                  cursorColor: Colors.white,
+                                                  style: TextStyle(
+                                                      color: Colors.white),
                                                   keyboardType:
-                                                      TextInputType.number,
+                                                      TextInputType.phone,
                                                   inputFormatters: [
                                                     WhitelistingTextInputFormatter
                                                         .digitsOnly,
@@ -303,38 +324,56 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                   focusNode:
                                                       nodeDeliveryAgencyContactNumber,
                                                   decoration: InputDecoration(
-                                                      labelText:
-                                                          "Delivery Agent Contact",
-                                                      labelStyle: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.blue),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .blue))),
+                                                    labelText:
+                                                        "Delivery Agent Contact",
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Card(
-                                          shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  color: Colors.black)),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.4,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.15,
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.15,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            borderOnForeground: true,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                side: BorderSide(
+                                                    color: Colors.black)),
                                             child: img == null
                                                 ? Center(
-                                                    child: Icon(Icons.queue),
+                                                    child: Text(
+                                                      "Your image will appeare here",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
                                                   )
                                                 : Image.file(
                                                     img,
@@ -411,6 +450,10 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.7,
                                               margin: const EdgeInsets.only(
                                                   top: 10.0, bottom: 10.0),
                                               child: RaisedButton(
@@ -420,7 +463,7 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                         new BorderRadius
                                                             .circular(18.0),
                                                     side: BorderSide(
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                         width: 2.0)),
                                                 color: Colors.white,
                                                 child: Text(
@@ -431,38 +474,63 @@ class _ParcelManagementState extends State<ParcelManagement> {
                                                   ),
                                                 ),
                                                 onPressed: () async {
-                                                  dialogLoader(context);
-                                                  parcelManagementBloc
-                                                          .flatNumber.value =
-                                                      flatDropdownValue;
-                                                  parcelManagementBloc
-                                                      .image.value = img;
-                                                  resp =
-                                                      await parcelManagementBloc
-                                                          .addParcelDetails();
-                                                  if (resp == 'success') {
-                                                    Navigator.pop(context);
-                                                    _scaffoldKey.currentState
-                                                        .showSnackBar(new SnackBar(
-                                                            content: new Text(
-                                                                "Added Successfully !",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Raleway'))));
-                                                  } else {
-                                                    Navigator.pop(context);
-                                                    _scaffoldKey.currentState
-                                                        .showSnackBar(new SnackBar(
-                                                            content: new Text(
-                                                                "Cannot add now !",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Raleway'))));
+                                                  if (_submitDetailsKey
+                                                      .currentState
+                                                      .validate()) {
+                                                    dialogLoader(context);
+                                                    parcelManagementBloc
+                                                            .flatNumber.value =
+                                                        flatDropdownValue;
+                                                    parcelManagementBloc
+                                                        .image.value = img;
+                                                    resp =
+                                                        await parcelManagementBloc
+                                                            .addParcelDetails();
+                                                    if (resp == 'success') {
+                                                      FocusScope.of(context)
+                                                          .requestFocus(
+                                                              nodeSubmitButton);
+                                                      Navigator.pop(context);
+                                                      _scaffoldKey.currentState
+                                                          .showSnackBar(new SnackBar(
+                                                              content: new Text(
+                                                                  "Added Successfully !",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Raleway'))));
+                                                      deliveryAgencyNameController
+                                                          .clear();
+                                                      deliveryAgencyContactNumberController
+                                                          .clear();
+                                                      FocusScope.of(context)
+                                                          .requestFocus(
+                                                              nodeSubmitButton);
+                                                    } else {
+                                                      FocusScope.of(context)
+                                                          .requestFocus(
+                                                              nodeSubmitButton);
+                                                      Navigator.pop(context);
+                                                      _scaffoldKey.currentState
+                                                          .showSnackBar(new SnackBar(
+                                                              content: new Text(
+                                                                  "Cannot add now !",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Raleway'))));
+                                                      deliveryAgencyNameController
+                                                          .clear();
+                                                      deliveryAgencyContactNumberController
+                                                          .clear();
+                                                    }
+                                                    FocusScope.of(context)
+                                                        .requestFocus(
+                                                            nodeSubmitButton);
+                                                    // checkInternetConnection();
+                                                    // if (_addFormKey.currentState.validate()) {
+                                                    //   checkAddDetails();
+                                                    // } else {}
+
                                                   }
-                                                  // checkInternetConnection();
-                                                  // if (_addFormKey.currentState.validate()) {
-                                                  //   checkAddDetails();
-                                                  // } else {}
                                                 },
                                               ),
                                             ),
@@ -534,243 +602,259 @@ class _ParcelManagementState extends State<ParcelManagement> {
                         //   color: Colors.blue,
                         //   thickness: 2.0,
                         // ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.77,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: parcelDetails.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.25,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Card(
-                                      color: Colors.blue,
-                                      semanticContainer: true,
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Image.network(
-                                              "https://picsum.photos/200/300"),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: <Widget>[
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 5),
-                                                      child: Text(
-                                                        "Name :",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                        RefreshIndicator(
+                          onRefresh: getRefresh,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.77,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: parcelDetails.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Card(
+                                        color: Colors.blue,
+                                        semanticContainer: true,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Image.network(
+                                                "https://picsum.photos/200/300"),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.65,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          "Name :",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Text(
-                                                        parcelDetails[index]
-                                                                    ['user']
-                                                                ['owner_name']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        child: Text(
+                                                          parcelDetails[index]
+                                                                      ['user']
+                                                                  ['owner_name']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 5),
-                                                      child: Text(
-                                                        "Delivery agency :",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.65,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          "Delivery agency :",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Text(
-                                                        parcelDetails[index][
-                                                                'delivery_agency']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        child: Text(
+                                                          parcelDetails[index][
+                                                                  'delivery_agency']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 5),
-                                                      child: Text(
-                                                        "Contact no :",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.65,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          "Contact no :",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Text(
-                                                        parcelDetails[index][
-                                                                'delivery_contact']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        child: Text(
+                                                          parcelDetails[index][
+                                                                  'delivery_contact']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 5),
-                                                      child: Text(
-                                                        "Date :",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.65,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          "Date :",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Text(
-                                                        parcelDetails[index]
-                                                                ['date']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        child: Text(
+                                                          parcelDetails[index]
+                                                                  ['date']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 5),
-                                                      child: Text(
-                                                        "Time :",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.65,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 5),
+                                                        child: Text(
+                                                          "Time :",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Text(
-                                                        parcelDetails[index]
-                                                                ['time']
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        child: Text(
+                                                          parcelDetails[index]
+                                                                  ['time']
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ));
-                              }),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ));
+                                }),
+                          ),
                         ),
                       ],
                     ),

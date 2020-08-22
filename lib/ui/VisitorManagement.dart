@@ -192,6 +192,12 @@ class _VisitorManagementState extends State<VisitorManagement> {
     );
   }
 
+  Future<Null> getRefresh() async {
+    getVisitor();
+    // getComplaints();
+    await Future.delayed(Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -205,7 +211,6 @@ class _VisitorManagementState extends State<VisitorManagement> {
             elevation: 0.0,
             bottom: TabBar(
               indicatorColor: Colors.black,
-              
               tabs: [
                 Tab(
                   icon: Icon(Icons.directions_car),
@@ -240,6 +245,7 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.75,
                                   child: Card(
+                                    color: Colors.blue,
                                     margin: EdgeInsets.fromLTRB(
                                         10.0, 15.0, 10.0, 10.0),
                                     shape: RoundedRectangleBorder(
@@ -262,6 +268,8 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                             children: <Widget>[
                                               ListTile(
                                                 title: DropdownButton<String>(
+                                                  dropdownColor: Colors.blue,
+                                                  focusColor: Colors.white,
                                                   focusNode:
                                                       nodeflatDropdownValue,
                                                   value: flatDropdownValue,
@@ -277,13 +285,13 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                                         fontFamily: 'Raleway',
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.blue),
+                                                        color: Colors.white),
                                                   ),
                                                   style: TextStyle(
-                                                      color: Colors.blue),
+                                                      color: Colors.white),
                                                   underline: Container(
                                                     height: 2,
-                                                    color: Colors.blue,
+                                                    color: Colors.white,
                                                   ),
                                                   onChanged:
                                                       (String newValue) async {
@@ -321,7 +329,7 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                                             decoration:
                                                                 TextDecoration
                                                                     .none,
-                                                            color: Colors.blue,
+                                                            color: Colors.white,
                                                             fontFamily:
                                                                 'Raleway',
                                                             fontWeight:
@@ -334,6 +342,9 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                               ),
                                               ListTile(
                                                 title: TextFormField(
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                  cursorColor: Colors.white,
                                                   onChanged:
                                                       visitorManagementBloc
                                                           .getVehicleNumber,
@@ -348,27 +359,37 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                                   focusNode:
                                                       nodeUserVehicleDetails,
                                                   decoration: InputDecoration(
-                                                      labelText:
-                                                          "Vehicle Number",
-                                                      labelStyle: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.blue),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .blue))),
+                                                    labelText: "Vehicle Number",
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .white)),
+                                                  ),
                                                 ),
                                               ),
                                               ListTile(
                                                 title: TextFormField(
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                  cursorColor: Colors.white,
                                                   onChanged:
                                                       visitorManagementBloc
                                                           .getNoOfPersons,
                                                   validator: (value) {
                                                     if (value.isEmpty) {
-                                                      return 'Please Enter Vehicle Details';
+                                                      return 'Please enter details';
                                                     }
                                                     return null;
                                                   },
@@ -382,12 +403,17 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                                       labelStyle: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          color: Colors.blue),
+                                                          color: Colors.white),
                                                       focusedBorder:
                                                           UnderlineInputBorder(
                                                               borderSide: BorderSide(
                                                                   color: Colors
-                                                                      .blue))),
+                                                                      .white)),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .white))),
                                                 ),
                                               ),
                                             ],
@@ -400,6 +426,10 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                               CrossAxisAlignment.center,
                                           children: <Widget>[
                                             Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
                                               margin: const EdgeInsets.only(
                                                   top: 10.0, bottom: 10.0),
                                               child: RaisedButton(
@@ -409,47 +439,62 @@ class _VisitorManagementState extends State<VisitorManagement> {
                                                         new BorderRadius
                                                             .circular(18.0),
                                                     side: BorderSide(
-                                                        color: Colors.black,
+                                                        color: Colors.white,
                                                         width: 2.0)),
                                                 color: Colors.white,
                                                 child: Text(
                                                   "Submit",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.black,
+                                                    color: Colors.blue,
                                                   ),
                                                 ),
                                                 onPressed: () async {
-                                                  dialogLoader(context);
-                                                  visitorManagementBloc
-                                                          .flatNumber.value =
-                                                      flatDropdownValue;
-                                                  resp =
-                                                      await visitorManagementBloc
-                                                          .addVisitorDetails();
-                                                  if (resp == 'success') {
-                                                    Navigator.pop(context);
-                                                    _scaffoldKey.currentState
-                                                        .showSnackBar(new SnackBar(
-                                                            content: new Text(
-                                                                "Added successfully !",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Raleway'))));
-                                                  } else {
-                                                    Navigator.pop(context);
-                                                    _scaffoldKey.currentState
-                                                        .showSnackBar(new SnackBar(
-                                                            content: new Text(
-                                                                "Cannot add now !",
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Raleway'))));
-                                                  }
-                                                  // checkInternetConnection();
-                                                  // if (_addFormKey.currentState.validate()) {
-                                                  //   checkAddDetails();
-                                                  // } else {}
+                                                  if (_submitDetailsKey
+                                                      .currentState
+                                                      .validate()) {
+                                                    dialogLoader(context);
+                                                    visitorManagementBloc
+                                                            .flatNumber.value =
+                                                        flatDropdownValue;
+                                                    resp =
+                                                        await visitorManagementBloc
+                                                            .addVisitorDetails();
+                                                    if (resp == 'success') {
+                                                      FocusScope.of(context)
+                                                          .requestFocus(
+                                                              nodeSubmitButton);
+                                                      Navigator.pop(context);
+                                                      _scaffoldKey.currentState
+                                                          .showSnackBar(new SnackBar(
+                                                              content: new Text(
+                                                                  "Added successfully !",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Raleway'))));
+                                                      userVehicleDetails
+                                                          .clear();
+                                                      numberOfPersonsController
+                                                          .clear();
+                                                    } else {
+                                                      FocusScope.of(context)
+                                                          .requestFocus(
+                                                              nodeSubmitButton);
+                                                      Navigator.pop(context);
+                                                      _scaffoldKey.currentState
+                                                          .showSnackBar(new SnackBar(
+                                                              content: new Text(
+                                                                  "Cannot add now !",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Raleway'))));
+                                                    }
+                                                    // checkInternetConnection();
+                                                    // if (_addFormKey.currentState.validate()) {
+                                                    //   checkAddDetails();
+                                                    // } else {}
+
+                                                  } else {}
                                                 },
                                               ),
                                             ),
@@ -521,273 +566,282 @@ class _VisitorManagementState extends State<VisitorManagement> {
                         //   color: Colors.blue,
                         //   thickness: 2.0,
                         // ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.77,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: visitorsList.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.25,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        if (visitorsList[index]['flag'] ==
-                                            'gatekeeper') {
-                                          return null;
-                                        }
-                                        if (visitorsList[index]['verified'] ==
-                                            false) {
-                                          otpDialog(visitorsList[index]['_id'],
-                                              index);
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                      child: Card(
-                                        color: visitorsList[index]['flag'] ==
-                                                "gatekeeper"
-                                            ? Colors.blue[400]
-                                            : visitorsList[index]['verified'] ==
-                                                    true
-                                                ? Colors.green
-                                                : Colors.red,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "Flat Number :",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                        RefreshIndicator(
+                          onRefresh: getRefresh,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.77,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: visitorsList.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          if (visitorsList[index]['flag'] ==
+                                              'gatekeeper') {
+                                            return null;
+                                          }
+                                          if (visitorsList[index]['verified'] ==
+                                              false) {
+                                            otpDialog(
+                                                visitorsList[index]['_id'],
+                                                index);
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        child: Card(
+                                          color: visitorsList[index]['flag'] ==
+                                                  "gatekeeper"
+                                              ? Colors.blue[400]
+                                              : visitorsList[index]
+                                                          ['verified'] ==
+                                                      true
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Flat Number :",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]['user']
-                                                            ['flat_no']
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                                  ['user']
+                                                              ['flat_no']
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "Name :",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Name :",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]
-                                                                ['name'] ==
-                                                            null
-                                                        ? "-"
-                                                        : visitorsList[index]
-                                                                ['name']
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                                  ['name'] ==
+                                                              null
+                                                          ? "-"
+                                                          : visitorsList[index]
+                                                                  ['name']
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "Contact no :",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Contact no :",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]
-                                                                ['contact'] ==
-                                                            null
-                                                        ? "-"
-                                                        : visitorsList[index]
-                                                                ['contact']
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                                  ['contact'] ==
+                                                              null
+                                                          ? "-"
+                                                          : visitorsList[index]
+                                                                  ['contact']
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "No of persons :",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "No of persons :",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]
-                                                            ['no_of_persons']
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                              ['no_of_persons']
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "Date :",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Date :",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]['date']
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                              ['date']
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "Time : ",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "Time : ",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]['time']
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                              ['time']
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: Text(
-                                                    "OTP : ",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      "OTP : ",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  child: Text(
-                                                    visitorsList[index]
-                                                                ['otp'] ==
-                                                            null
-                                                        ? "-"
-                                                        : visitorsList[index]
-                                                                ['otp']
-                                                            .toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Text(
+                                                      visitorsList[index]
+                                                                  ['otp'] ==
+                                                              null
+                                                          ? "-"
+                                                          : visitorsList[index]
+                                                                  ['otp']
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ));
-                              }),
+                                      ));
+                                }),
+                          ),
                         ),
                       ],
                     ),
